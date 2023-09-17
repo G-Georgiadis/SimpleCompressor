@@ -23,6 +23,16 @@ private:
 	void drawGrill(Graphics& g);
 
 	float lastMaxValue;
+
+	/** Indicates that the channel has passed the max level (0dB FS) */
+	bool hasPeaked;
+
+	TextButton peakIndicator;
+
+	/** Resets the peaked flag */
+	void resetPeaked();
+
+
 	// Inherited via Timer
 	void timerCallback() override;
 };
