@@ -46,18 +46,6 @@ public:
 
 		float angle = rotaryStartAngle + (sliderPosProportional * (rotaryEndAngle - rotaryStartAngle));
 
-//#ifdef DEBUG
-//		/** Helper circle - max within bounds */
-//		g.setColour(Colours::darkred);
-//		g.drawEllipse(
-//			(width < height) ? x : totalCenterX - totalRadius,
-//			(width < height) ? totalCenterY - totalRadius : y,
-//			totalDiameter,
-//			totalDiameter,
-//			1
-//		);
-//#endif // DEBUG
-
 		/** Knob outer circle. The outer gear shape edges should touch this circle. */
 		float knobGearOuterDiameter = 0.9f * totalDiameter;
 		float knobGearOuterRadius = knobGearOuterDiameter / 2.f;
@@ -127,9 +115,9 @@ public:
 		 * Pointer.
 		 */
 		Path knobPointerPath;
-		knobPointerPath.startNewSubPath(totalCenterX, totalCenterY - totalRadius + (totalDiameter - knobGearOuterDiameter) / 2.f);
-		knobPointerPath.lineTo(totalCenterX + 0.15f * (knobGearOuterDiameter - knobGearInnerDiameter) / 2, totalCenterY - totalRadius + (knobGearOuterDiameter - knobGearInnerDiameter));
-		knobPointerPath.lineTo(totalCenterX - 0.15f * (knobGearOuterDiameter - knobGearInnerDiameter) / 2, totalCenterY - totalRadius + (knobGearOuterDiameter - knobGearInnerDiameter));
+		knobPointerPath.startNewSubPath(totalCenterX, totalCenterY - totalRadius + (totalDiameter - knobGearOuterDiameter - 10.f) / 2.f);
+		knobPointerPath.lineTo(totalCenterX + 0.2f * (knobGearOuterDiameter - knobGearInnerDiameter) / 2, totalCenterY - totalRadius + (knobGearOuterDiameter - knobGearInnerDiameter));
+		knobPointerPath.lineTo(totalCenterX - 0.2f * (knobGearOuterDiameter - knobGearInnerDiameter) / 2, totalCenterY - totalRadius + (knobGearOuterDiameter - knobGearInnerDiameter));
 		knobPointerPath.closeSubPath();
 		knobPointerPath = knobPointerPath.createPathWithRoundedCorners(5.f);
 

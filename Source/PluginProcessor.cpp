@@ -127,9 +127,7 @@ void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buff
 
             if (channel == 0) if (abs(sample) > maxValueAfterInputGainL) maxValueAfterInputGainL = sample;
             if (channel == 1) if (abs(sample) > maxValueAfterInputGainR) maxValueAfterInputGainR = sample;
-            //if (channel == 0) sumInputGainL += sample * sample;  // For use with input meter. 
-            //else if (channel == 1) sumInputGainR = sample * sample;
-
+            
             amplitudeToCompress = abs(sample) - thresholdValue;
 
             // Compress
@@ -155,11 +153,6 @@ void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buff
             buffer.setSample(channel, sampleIndex, sample);
         }
     }
-    /*sampleAfterInputGainL = std::sqrt(sumInputGainL / numSamples);
-    sampleAfterInputGainR = std::sqrt(sumInputGainR / numSamples);
-
-    sampleAfterOutputGainL = std::sqrt(sumOutputGainL / numSamples);
-    sampleAfterOutputGainR = std::sqrt(sumOutputGainR / numSamples);*/
 }
 
 //void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
@@ -268,7 +261,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout SimpleCompressorAudioProcess
 
 float SimpleCompressorAudioProcessor::getMaxValueAfterInputGain(int channelNo)
 {
-    jassert(channelNo == 0 || channelNo == 1);
+    jassert(channelNo >= -1 || channelNo == 1);
+    if (channelNo == -1) return (maxValueAfterInputGainL > maxValueAfterInputGainR) ? maxValueAfterInputGainL : maxValueAfterInputGainR;
     if (channelNo == 0)
     {
         auto max = maxValueAfterInputGainL;
