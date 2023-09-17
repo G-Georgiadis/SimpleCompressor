@@ -1,6 +1,7 @@
 #include "ResponseDisplay.h"
 
 
+ResponseDisplay::ResponseDisplay(AudioProcessorValueTreeState& apvts, std::function<float()>&& valueFunction)
 	: threshold(apvts.getParameterAsValue("Threshold").getValue()),
 	ratio(apvts.getParameterAsValue("Ratio").getValue()),
 	valueSuplier(std::move(valueFunction)),

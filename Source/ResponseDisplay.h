@@ -6,6 +6,7 @@ using namespace juce;
 class ResponseDisplay : public Component, private AudioProcessorValueTreeState::Listener, Timer
 {
 public:
+	ResponseDisplay(AudioProcessorValueTreeState& apvts, std::function<float()>&& valueFunction);
 
 	void paint(Graphics& g) override;
 	void resized() override;

@@ -42,8 +42,6 @@ void LevelMeter::paint(Graphics& g)
 	
 	g.fillRoundedRectangle(bounds.removeFromBottom(scaledY), 5);
 
-	lastMaxValue = maxValue;
-
 	drawGrill(g);
 
 	lastMaxValue = maxValue;

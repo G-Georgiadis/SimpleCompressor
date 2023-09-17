@@ -127,8 +127,6 @@ void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buff
 
             if (channel == 0) if (abs(sample) > maxValueAfterInputGainL) maxValueAfterInputGainL = sample;
             if (channel == 1) if (abs(sample) > maxValueAfterInputGainR) maxValueAfterInputGainR = sample;
-            //if (channel == 0) sumInputGainL += sample * sample;  // For use with input meter. 
-            //else if (channel == 1) sumInputGainR = sample * sample;
             
             amplitudeToCompress = abs(sample) - thresholdValue;
 
@@ -157,61 +155,7 @@ void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buff
     }
 }
 
-//void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, juce::MidiBuffer&)
-//{
-//    ScopedNoDenormals noDenormals;
-//
-//    double sumInputGainL = 0.0;
-//    double sumInputGainR = 0.0;
-//
-//    double sumOutputGainL = 0.0;
-//    double sumOutputGainR = 0.0;
-//
-//    int numSamples = buffer.getNumSamples();
-//
-//    for (int channel = 0; channel < buffer.getNumChannels(); channel++)
-//    {
-//
-//        for (int sampleIndex = 0; sampleIndex < numSamples; sampleIndex++)
-//        {
-//            /** The current amplitude value [-1.f to 1.f] */
-//            auto sample = buffer.getSample(channel, sampleIndex);
-//            auto thresholdValue = juce::Decibels::decibelsToGain(thresholdDb);
-//
-//            // Apply input gain
-//            sample = inputGain.processSample(sample);
-//
-//            if (channel == 0) sumInputGainL += sample * sample;  // For use with input meter. 
-//            else if (channel == 1) sumInputGainR = sample * sample;
-//
-//            amplitudeToCompress = abs(sample) - thresholdValue;
-//
-//            // Compress
-//            if (sample > thresholdValue)
-//            {
-//                sample = thresholdValue + compressorGain.processSample(amplitudeToCompress);
-//            }
-//            else if (sample < -thresholdValue)
-//            {
-//                sample = -thresholdValue - compressorGain.processSample(amplitudeToCompress);
-//            }
-//
-//            // Apply output gain
-//            sample = outputGain.processSample(sample);
-//
-//            if (channel == 0) sumOutputGainL += sample * sample;  // For use with input meter. 
-//            else if (channel == 1) sumOutputGainR += sample * sample;
-//
-//            // Write processed sample to buffer
-//            buffer.setSample(channel, sampleIndex, sample);
-//        }
-//    }
-//    sampleAfterInputGainL = std::sqrt(sumInputGainL / numSamples);
-//    sampleAfterInputGainR = std::sqrt(sumInputGainR / numSamples);
-//
-//    sampleAfterOutputGainL = std::sqrt(sumOutputGainL / numSamples);
-//    sampleAfterOutputGainR = std::sqrt(sumOutputGainR / numSamples);
-//}
+
 #pragma endregion Processing logic
 
 

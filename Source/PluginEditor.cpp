@@ -55,6 +55,7 @@ SimpleCompressorAudioProcessorEditor::~SimpleCompressorAudioProcessorEditor()
 void SimpleCompressorAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
+    g.fillAll (juce::Colours::darkkhaki.darker(0.91));
 }
 
 void SimpleCompressorAudioProcessorEditor::resized()
