@@ -127,9 +127,6 @@ public:
 		 * Pointer.
 		 */
 		Path knobPointerPath;
-		knobPointerPath.startNewSubPath(totalCenterX, totalCenterY - totalRadius + (totalDiameter - knobGearOuterDiameter) / 2.f);
-		knobPointerPath.lineTo(totalCenterX + 0.15f * (knobGearOuterDiameter - knobGearInnerDiameter) / 2, totalCenterY - totalRadius + (knobGearOuterDiameter - knobGearInnerDiameter));
-		knobPointerPath.lineTo(totalCenterX - 0.15f * (knobGearOuterDiameter - knobGearInnerDiameter) / 2, totalCenterY - totalRadius + (knobGearOuterDiameter - knobGearInnerDiameter));
 		knobPointerPath.closeSubPath();
 		knobPointerPath = knobPointerPath.createPathWithRoundedCorners(5.f);
 

@@ -20,7 +20,7 @@ SimpleCompressorAudioProcessorEditor::SimpleCompressorAudioProcessorEditor(Simpl
     outputGain_Attachment(p.apvts, "Output Gain", outputGain_Knob),
     input_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterInputGain(0); }),
     input_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterInputGain(1); }),
-    responseDisplay(p.apvts),
+    responseDisplay(p.apvts, [&]() { return audioProcessor.getMaxValueAfterInputGain(-1); }),
     output_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterOutputGain(0); }),
     output_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterOutputGain(1); })
 
@@ -55,7 +55,6 @@ SimpleCompressorAudioProcessorEditor::~SimpleCompressorAudioProcessorEditor()
 void SimpleCompressorAudioProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (juce::Colours::black);
 }
 
 void SimpleCompressorAudioProcessorEditor::resized()
