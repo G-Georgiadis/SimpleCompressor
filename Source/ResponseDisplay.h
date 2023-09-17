@@ -3,10 +3,10 @@
 
 using namespace juce;
 
-class ResponseDisplay : public Component, private AudioProcessorValueTreeState::Listener
+class ResponseDisplay : public Component, private AudioProcessorValueTreeState::Listener, Timer
 {
 public:
-	ResponseDisplay(AudioProcessorValueTreeState& apvts);
+	ResponseDisplay(AudioProcessorValueTreeState& apvts, std::function<float()>&& valueFunction);
 
 	void paint(Graphics& g) override;
 	void resized() override;
@@ -15,4 +15,9 @@ private:
 
 	// Inherited via Listener
 	void parameterChanged(const String& parameterID, float newValue) override;
+	
+	std::function<float()> valueSuplier;
+	float lastMaxValue;
+	// Inherited via Timer
+	void timerCallback() override;
 };

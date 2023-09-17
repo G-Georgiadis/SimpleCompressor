@@ -106,6 +106,7 @@ public:
 
     /** Fetches the amplitude of the signal post input gain. Used for the level meter */
     float getPostGainOutputValue(int channelNo);
+    
 private:
     /** Manages undo states. Currently created but not implemented. */
     juce::UndoManager undoManager;
@@ -126,6 +127,7 @@ private:
     juce::dsp::Gain<float> compressorGain;
     /** The Output Gain. Amplifies the signal after compression. */
     juce::dsp::Gain<float> outputGain;
+
 
     // Inherited via Listener
     /** Called when a parameter is tweaked on the GUI. Sets the parameter values used for remdering the output. */
