@@ -77,7 +77,7 @@ public:
     /** Generates the parameter layout for the compressor */
     static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     /** The value tree state of the compressor. Holds parameters and interfaces between GUI controls and processor logic */
-    juce::AudioProcessorValueTreeState apvts{ *this, &undoManager, "Simple Compressor Parameters", createParameterLayout() };
+    juce::AudioProcessorValueTreeState apvts{ *this, &undoManager, "SimpleCompressorParameters", createParameterLayout() };
 
     float maxValueAfterInputGainL;
     float maxValueAfterInputGainR;

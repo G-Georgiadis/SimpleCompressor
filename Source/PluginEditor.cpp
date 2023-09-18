@@ -14,10 +14,10 @@
 SimpleCompressorAudioProcessorEditor::SimpleCompressorAudioProcessorEditor(SimpleCompressorAudioProcessor& p)
     : AudioProcessorEditor(&p),
     audioProcessor(p),
-    inputGain_Attachment(p.apvts, "Input Gain", inputGain_Knob),
+    inputGain_Attachment(p.apvts, "InputGain", inputGain_Knob),
     threshold_Attachment(p.apvts, "Threshold", threshold_Knob),
     ratio_Attachment(p.apvts, "Ratio", ratio_Knob),
-    outputGain_Attachment(p.apvts, "Output Gain", outputGain_Knob),
+    outputGain_Attachment(p.apvts, "OutputGain", outputGain_Knob),
     input_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterInputGain(0); }),
     input_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterInputGain(1); }),
     responseDisplay(p.apvts, [&]() { return audioProcessor.getMaxValueAfterInputGain(-1); }),
