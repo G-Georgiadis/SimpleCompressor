@@ -7,6 +7,9 @@
               pluginVST3Category="Dynamics" pluginAAXCategory="2" cppLanguageStandard="20">
   <MAINGROUP id="LcF6jw" name="SimpleCompressor">
     <GROUP id="{4143779F-93D6-17B6-A772-2EB38DC2FDB5}" name="Source">
+      <FILE id="IPpuPK" name="PeakIndicator.cpp" compile="1" resource="0"
+            file="Source/PeakIndicator.cpp"/>
+      <FILE id="a27Kcv" name="PeakIndicator.h" compile="0" resource="0" file="Source/PeakIndicator.h"/>
       <FILE id="ynGPL9" name="ResponseDisplay.cpp" compile="1" resource="0"
             file="Source/ResponseDisplay.cpp"/>
       <FILE id="UR0SsH" name="ResponseDisplay.h" compile="0" resource="0"

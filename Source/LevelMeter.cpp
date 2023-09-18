@@ -1,15 +1,11 @@
 #include "LevelMeter.h"
 
-LevelMeter::LevelMeter(std::function<float()>&& valueFunction) 
+LevelMeter::LevelMeter(std::function<float()>&& valueFunction, std::function<void()>&& resetMaxFunction)
 	: valueSuplier(std::move(valueFunction)),
 	gradient(), lastMaxValue(0),
-	hasPeaked(false),
-	peakIndicator()
+	peakIndicator(std::move(resetMaxFunction))
 {
-	addChildComponent(peakIndicator);
-	peakIndicator.onClick = [this]() { resetPeaked(); };
-	peakIndicator.setColour(TextButton::ColourIds::buttonColourId, Colours::darkred);
-	peakIndicator.setColour(TextButton::ColourIds::textColourOffId, Colours::darkred);
+	addAndMakeVisible(peakIndicator);
 
 	startTimerHz(60);
 }
@@ -22,11 +18,10 @@ void LevelMeter::paint(Graphics& g)
 {
 	auto maxValue = valueSuplier();
 
-	/** Check if the signal has clipped and if so, make the indicator visible/ */
+	/** Check if the signal has clipped and if so, set the indicator */
 	if (maxValue >= 1.f)
 	{
-		hasPeaked = true;
-		peakIndicator.setVisible(true);
+		peakIndicator.set();
 	}
 
 	/** Smoothing the level drop */
@@ -83,14 +78,8 @@ void LevelMeter::drawGrill(Graphics& g)
 	}
 }
 
-void LevelMeter::resetPeaked()
-{
-	hasPeaked = false;
-	peakIndicator.setVisible(false);
-}
-
 void LevelMeter::timerCallback()
 {
-	if (hasPeaked) peakIndicator.setVisible(true);
+	//if (hasPeaked) peakIndicator.setVisible(true);
 	this->repaint();
 }

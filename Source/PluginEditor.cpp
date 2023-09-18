@@ -18,11 +18,15 @@ SimpleCompressorAudioProcessorEditor::SimpleCompressorAudioProcessorEditor(Simpl
     threshold_Attachment(p.apvts, "Threshold", threshold_Knob),
     ratio_Attachment(p.apvts, "Ratio", ratio_Knob),
     outputGain_Attachment(p.apvts, "OutputGain", outputGain_Knob),
-    input_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterInputGain(0); }),
-    input_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterInputGain(1); }),
+    input_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterInputGain(0); },
+        [&]() { return audioProcessor.resetPostInputGainMaxValue(0); }),
+    input_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterInputGain(1); },
+        [&]() { return audioProcessor.resetPostInputGainMaxValue(1); }),
     responseDisplay(p.apvts, [&]() { return audioProcessor.getMaxValueAfterInputGain(-1); }),
-    output_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterOutputGain(0); }),
-    output_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterOutputGain(1); })
+    output_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterOutputGain(0); },
+        [&]() { return audioProcessor.resetPostOutputGainMaxValue(0); }),
+    output_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterOutputGain(1); },
+        [&]() { return audioProcessor.resetPostOutputGainMaxValue(1); })
 
 {
     // Make sure that before the constructor has finished, you've set the
