@@ -21,10 +21,10 @@ SimpleCompressorAudioProcessor::SimpleCompressorAudioProcessor()
     maxValueAfterInputGainL(0),
     maxValueAfterInputGainR(0)
 {
-    apvts.addParameterListener("Input Gain", this);
+    apvts.addParameterListener("InputGain", this);
     apvts.addParameterListener("Threshold", this);
     apvts.addParameterListener("Ratio", this);
-    apvts.addParameterListener("Output Gain", this);
+    apvts.addParameterListener("OutputGain", this);
 }
 
 SimpleCompressorAudioProcessor::~SimpleCompressorAudioProcessor()
@@ -173,17 +173,20 @@ juce::AudioProcessorEditor* SimpleCompressorAudioProcessor::createEditor()
 }
 
 //========================= State information ==================================
+
 void SimpleCompressorAudioProcessor::getStateInformation(juce::MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    auto state = apvts.copyState();
+    std::unique_ptr<juce::XmlElement> xml(state.createXml());
+    copyXmlToBinary(*xml, destData);
 }
 
 void SimpleCompressorAudioProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    std::unique_ptr<juce::XmlElement> xmlState(getXmlFromBinary(data, sizeInBytes));
+    if (xmlState.get() != nullptr)
+        if (xmlState->hasTagName(apvts.state.getType()))
+            apvts.replaceState(juce::ValueTree::fromXml(*xmlState));
 }
 
 //========================= Parameter layout ====================================
@@ -191,10 +194,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout SimpleCompressorAudioProcess
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
-    std::unique_ptr<juce::AudioParameterFloat> inputGain = std::make_unique<juce::AudioParameterFloat>("Input Gain", "Input Gain", 0.f, 24.f, 0.f);
+    std::unique_ptr<juce::AudioParameterFloat> inputGain = std::make_unique<juce::AudioParameterFloat>("InputGain", "Input Gain", 0.f, 24.f, 0.f);
     std::unique_ptr<juce::AudioParameterFloat> threshold = std::make_unique<juce::AudioParameterFloat>("Threshold", "Threshold", -70.f, 0.f, 0.f);
     std::unique_ptr<juce::AudioParameterFloat> ratio = std::make_unique<juce::AudioParameterFloat>("Ratio", "Ratio", 1.f, 10.f, 2.f);
-    std::unique_ptr<juce::AudioParameterFloat> outputGain = std::make_unique<juce::AudioParameterFloat>("Output Gain", "Output Gain", 0.f, 36.f, 0.f);
+    std::unique_ptr<juce::AudioParameterFloat> outputGain = std::make_unique<juce::AudioParameterFloat>("OutputGain", "Output Gain", 0.f, 36.f, 0.f);
 
     layout.add<juce::AudioParameterFloat>(std::move(inputGain));
     layout.add<juce::AudioParameterFloat>(std::move(threshold));
@@ -267,10 +270,10 @@ float SimpleCompressorAudioProcessor::getPostGainOutputValue(int channelNo)
 
 void SimpleCompressorAudioProcessor::parameterChanged(const juce::String& parameterID, float newValue)
 {
-    if (parameterID == "Input Gain") inputGain.setGainDecibels(newValue);
+    if (parameterID == "InputGain") inputGain.setGainDecibels(newValue);
     if (parameterID == "Threshold") thresholdDb = newValue;
     if (parameterID == "Ratio") compressorGain.setGainLinear(1/ newValue);
-    if (parameterID == "Output Gain") outputGain.setGainDecibels(newValue);
+    if (parameterID == "OutputGain") outputGain.setGainDecibels(newValue);
 }
 
 
