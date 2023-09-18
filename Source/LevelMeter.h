@@ -3,6 +3,7 @@
 
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
+#include "PeakIndicator.h"
 
 using namespace juce;
 
@@ -10,7 +11,7 @@ using namespace juce;
 class LevelMeter : public Component, Timer
 {
 public:
-	LevelMeter(std::function<float()>&& valueFunction);
+	LevelMeter(std::function<float()>&& valueFunction, std::function<void()>&& resetMaxFunction);
 	~LevelMeter();
 
 	void paint(Graphics& g) override;
@@ -24,14 +25,7 @@ private:
 
 	float lastMaxValue;
 
-	/** Indicates that the channel has passed the max level (0dB FS) */
-	bool hasPeaked;
-
-	TextButton peakIndicator;
-
-	/** Resets the peaked flag */
-	void resetPeaked();
-
+	PeakIndicator peakIndicator;
 
 	// Inherited via Timer
 	void timerCallback() override;

@@ -101,6 +101,9 @@ public:
     float getMaxValueAfterInputGain(int channelNo);
     float getMaxValueAfterOutputGain(int channelNo);
 
+    void resetPostInputGainMaxValue(int channelNo);
+    void resetPostOutputGainMaxValue(int channelNo);
+
     /** Fetches the amplitude of the signal post input gain. Used for the level meter */
     float getPostGainInputValue(int channelNo);
 

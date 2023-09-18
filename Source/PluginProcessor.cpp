@@ -243,6 +243,42 @@ float SimpleCompressorAudioProcessor::getMaxValueAfterOutputGain(int channelNo)
     }
 }
 
+void SimpleCompressorAudioProcessor::resetPostInputGainMaxValue(int channelNo)
+{
+    jassert(channelNo == -1 || channelNo == 0 || channelNo == 1);
+    if (channelNo == -1)
+    {
+        maxValueAfterInputGainL = 0;
+        maxValueAfterInputGainR = 0;
+    }
+    else if (channelNo == 0)
+    {
+        maxValueAfterInputGainL = 0;
+    }
+    else
+    {
+        maxValueAfterInputGainR = 0;
+    }
+}
+
+void SimpleCompressorAudioProcessor::resetPostOutputGainMaxValue(int channelNo)
+{
+    jassert(channelNo == -1 || channelNo == 0 || channelNo == 1);
+    if (channelNo == -1)
+    {
+        maxValueAfterOutputGainL = 0;
+        maxValueAfterOutputGainR = 0;
+    }
+    else if (channelNo == 0)
+    {
+        maxValueAfterOutputGainL = 0;
+    }
+    else
+    {
+        maxValueAfterOutputGainR = 0;
+    }
+}
+
 float SimpleCompressorAudioProcessor::getPostGainInputValue(int channelNo)
  {
     jassert(channelNo == 0 || channelNo == 1);
