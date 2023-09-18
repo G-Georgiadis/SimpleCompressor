@@ -42,9 +42,17 @@ SimpleCompressorAudioProcessorEditor::SimpleCompressorAudioProcessorEditor(Simpl
     addAndMakeVisible(output_LevelMeterR);
 
     addAndMakeVisible(inputGain_Knob);
+    inputGain_Knob.setTextValueSuffix(" dB");
+
     addAndMakeVisible(threshold_Knob);
+    threshold_Knob.setTextValueSuffix(" dB");
+
     addAndMakeVisible(ratio_Knob);
+    ratio_Knob.setNumDecimalPlacesToDisplay(0);
+    ratio_Knob.setTextValueSuffix(":1");
+    
     addAndMakeVisible(outputGain_Knob);
+    outputGain_Knob.setTextValueSuffix(" dB");
 
     this->setResizable(false, false);
     this->setBufferedToImage(true);
