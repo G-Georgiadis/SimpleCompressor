@@ -171,12 +171,11 @@ public:
 		sliderTextBoxPtr->setColour(juce::Label::backgroundWhenEditingColourId, juce::Colours::black);
 		sliderTextBoxPtr->setColour(juce::Label::outlineWhenEditingColourId, juce::Colours::beige);
 
+
 		// ToDo: Fix text box justification when editing the value
 
 		return sliderTextBoxPtr;
 	}
-
-	
 private:
 	static constexpr int numberOfDecimalPlaces = 2;
 };

@@ -196,12 +196,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout SimpleCompressorAudioProcess
 
     std::unique_ptr<juce::AudioParameterFloat> inputGain = std::make_unique<juce::AudioParameterFloat>("InputGain", "Input Gain", 0.f, 24.f, 0.f);
     std::unique_ptr<juce::AudioParameterFloat> threshold = std::make_unique<juce::AudioParameterFloat>("Threshold", "Threshold", -70.f, 0.f, 0.f);
-    std::unique_ptr<juce::AudioParameterFloat> ratio = std::make_unique<juce::AudioParameterFloat>("Ratio", "Ratio", 1.f, 10.f, 2.f);
+    std::unique_ptr<juce::AudioParameterInt> ratio = std::make_unique<juce::AudioParameterInt>("Ratio", "Ratio", 1, 10, 2);
     std::unique_ptr<juce::AudioParameterFloat> outputGain = std::make_unique<juce::AudioParameterFloat>("OutputGain", "Output Gain", 0.f, 36.f, 0.f);
 
     layout.add<juce::AudioParameterFloat>(std::move(inputGain));
     layout.add<juce::AudioParameterFloat>(std::move(threshold));
-    layout.add<juce::AudioParameterFloat>(std::move(ratio));
+    layout.add<juce::AudioParameterInt>(std::move(ratio));
     layout.add<juce::AudioParameterFloat>(std::move(outputGain));
 
     return layout;

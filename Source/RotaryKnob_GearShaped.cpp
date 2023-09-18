@@ -18,3 +18,4 @@ RotaryKnob_GearShaped::~RotaryKnob_GearShaped()
 {
 	this->setLookAndFeel(nullptr);
 }
+

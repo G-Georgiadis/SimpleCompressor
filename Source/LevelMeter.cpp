@@ -56,7 +56,7 @@ void LevelMeter::resized()
 	};
 	gradient.addColour(0.5, Colours::yellow);
 
-	peakIndicator.setBounds(bounds.getX() + 1, bounds.getY() + 1, bounds.getWidth() - 2.f, (bounds.getHeight() / 24.f) + 2.f);
+	peakIndicator.setBounds(bounds.getX(), bounds.getY(), bounds.getWidth(), (bounds.getHeight() / 24.f) +2.f);
 }
 
 void LevelMeter::drawGrill(Graphics& g)
@@ -80,6 +80,5 @@ void LevelMeter::drawGrill(Graphics& g)
 
 void LevelMeter::timerCallback()
 {
-	//if (hasPeaked) peakIndicator.setVisible(true);
 	this->repaint();
 }
