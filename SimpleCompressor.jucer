@@ -7,6 +7,10 @@
               pluginVST3Category="Dynamics" pluginAAXCategory="2" cppLanguageStandard="20">
   <MAINGROUP id="LcF6jw" name="SimpleCompressor">
     <GROUP id="{4143779F-93D6-17B6-A772-2EB38DC2FDB5}" name="Source">
+      <FILE id="Pu7MQ2" name="GainReductionMeter.cpp" compile="1" resource="0"
+            file="Source/GainReductionMeter.cpp"/>
+      <FILE id="sjucbg" name="GainReductionMeter.h" compile="0" resource="0"
+            file="Source/GainReductionMeter.h"/>
       <FILE id="IPpuPK" name="PeakIndicator.cpp" compile="1" resource="0"
             file="Source/PeakIndicator.cpp"/>
       <FILE id="a27Kcv" name="PeakIndicator.h" compile="0" resource="0" file="Source/PeakIndicator.h"/>

@@ -18,7 +18,6 @@ public:
 	void resized() override;
 private:
 	std::function<float()> valueSuplier;
-	Rectangle<int> repaintBounds;
 	ColourGradient gradient{};
 
 	void drawGrill(Graphics& g);

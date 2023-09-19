@@ -128,6 +128,8 @@ void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buff
             if (channel == 0) if (abs(sample) > maxValueAfterInputGainL) maxValueAfterInputGainL = sample;
             if (channel == 1) if (abs(sample) > maxValueAfterInputGainR) maxValueAfterInputGainR = sample;
             
+            auto postInputGainSample = sample;
+
             amplitudeToCompress = abs(sample) - thresholdValue;
 
             // Compress
@@ -139,6 +141,11 @@ void SimpleCompressorAudioProcessor::processBlock(juce::AudioBuffer<float>& buff
             {
                 sample = -thresholdValue - compressorGain.processSample(amplitudeToCompress);
             }
+
+            /* Measure and store that gain reduction amount (L) */
+            if (channel == 0) gainReductionL = postInputGainSample - sample;
+            /* Measure and store that gain reduction amount (R) */
+            if (channel == 1) gainReductionR = postInputGainSample - sample;
 
             // Apply output gain
             sample = outputGain.processSample(sample);
@@ -289,6 +296,19 @@ float SimpleCompressorAudioProcessor::getPostGainInputValue(int channelNo)
     case 1:
         return sampleAfterInputGainR;
     }
+}
+
+float SimpleCompressorAudioProcessor::getGainReduction(int channelNo)
+{
+    jassert(channelNo == 0 || channelNo == 1);
+    switch (channelNo)
+    {
+    case 0:
+        return gainReductionL;
+    case 1:
+        return gainReductionR;
+    }
+    
 }
 
 float SimpleCompressorAudioProcessor::getPostGainOutputValue(int channelNo)
