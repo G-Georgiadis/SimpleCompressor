@@ -23,6 +23,8 @@ SimpleCompressorAudioProcessorEditor::SimpleCompressorAudioProcessorEditor(Simpl
     input_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterInputGain(1); },
         [&]() { return audioProcessor.resetPostInputGainMaxValue(1); }),
     responseDisplay(p.apvts, [&]() { return audioProcessor.getMaxValueAfterInputGain(-1); }),
+    gainReductionMeterL([&]() { return audioProcessor.getGainReduction(0); }),
+    gainReductionMeterR([&]() { return audioProcessor.getGainReduction(1); }),
     output_LevelMeterL([&]() { return audioProcessor.getMaxValueAfterOutputGain(0); },
         [&]() { return audioProcessor.resetPostOutputGainMaxValue(0); }),
     output_LevelMeterR([&]() { return audioProcessor.getMaxValueAfterOutputGain(1); },
@@ -37,6 +39,9 @@ SimpleCompressorAudioProcessorEditor::SimpleCompressorAudioProcessorEditor(Simpl
     addAndMakeVisible(input_LevelMeterR);
 
     addAndMakeVisible(responseDisplay);
+
+    addAndMakeVisible(gainReductionMeterL);
+    addAndMakeVisible(gainReductionMeterR);
 
     addAndMakeVisible(output_LevelMeterL);
     addAndMakeVisible(output_LevelMeterR);
@@ -88,7 +93,11 @@ void SimpleCompressorAudioProcessorEditor::resized()
     input_LevelMeterL.setBounds(inputMeterBounds.removeFromLeft(inputMeterBounds.getWidth() / 2));
     input_LevelMeterR.setBounds(inputMeterBounds);
 
-    responseDisplay.setBounds(responseCurveBounds);
+    responseDisplay.setBounds(responseCurveBounds.removeFromLeft(responseCurveBounds.getWidth() - 30));
+    responseCurveBounds.removeFromLeft(5); 
+    gainReductionMeterL.setBounds(responseCurveBounds.removeFromLeft(10));
+    responseCurveBounds.removeFromLeft(5);
+    gainReductionMeterR.setBounds(responseCurveBounds.removeFromLeft(10));
 
     output_LevelMeterL.setBounds(outputMeterBounds.removeFromLeft(outputMeterBounds.getWidth() / 2));
     output_LevelMeterR.setBounds(outputMeterBounds);

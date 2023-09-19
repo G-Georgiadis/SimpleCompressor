@@ -14,6 +14,7 @@
 #include "RotaryKnob_GearShaped.h"
 #include "LevelMeter.h"
 #include "ResponseDisplay.h"
+#include "GainReductionMeter.h"
 
 /**
  * Controls the GUI.
@@ -52,6 +53,9 @@ private:
     LevelMeter input_LevelMeterR;
 
     ResponseDisplay responseDisplay;
+
+    GainReductionMeter gainReductionMeterL;
+    GainReductionMeter gainReductionMeterR;
 
     /** The post output gain level meter (L) */
     LevelMeter output_LevelMeterL;

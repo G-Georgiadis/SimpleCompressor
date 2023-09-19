@@ -79,7 +79,9 @@ public:
     /** The value tree state of the compressor. Holds parameters and interfaces between GUI controls and processor logic */
     juce::AudioProcessorValueTreeState apvts{ *this, &undoManager, "SimpleCompressorParameters", createParameterLayout() };
 
+    /** The maximum value that's been reached (L) */
     float maxValueAfterInputGainL;
+    /** The maximum value that's been reached (R) */
     float maxValueAfterInputGainR;
 
     float maxValueAfterOutputGainL;
@@ -87,8 +89,13 @@ public:
 
     /** The signal value post input gain (L) */
     float sampleAfterInputGainL;
-    /** The signal value post input gain (R) */
+    /** The signal value post input gain (L) */
     float sampleAfterInputGainR;
+
+    /** The difference between the post input gain amplitude and the amplitude before the output gain. (L) */
+    float gainReductionL;
+    /** The difference between the post input gain amplitude and the amplitude before the output gain. (R) */
+    float gainReductionR;
 
     /** The signal value post input gain (L) */
     float sampleAfterOutputGainL;
@@ -106,6 +113,8 @@ public:
 
     /** Fetches the amplitude of the signal post input gain. Used for the level meter */
     float getPostGainInputValue(int channelNo);
+
+    float getGainReduction(int channelNo);
 
     /** Fetches the amplitude of the signal post input gain. Used for the level meter */
     float getPostGainOutputValue(int channelNo);
